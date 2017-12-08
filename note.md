@@ -2800,6 +2800,527 @@ RIA（Rich Internet Applications）丰富互联网程序，具有高度互动性
 11.23
 1.
 将类的二进制数据中的符号引用替换为直接引用
-     在java中，一个java类将会编译成一个class文件。在编译时，java类并不知道引用类的实际内存地址，因此只能使用符号引用来代替。比如org.simple.People类引用org.simple.Tool类，在编译时People类并不知道Tool类的实际内存地址，因此只能使用符号org.simple.Tool(假设)来表示Tool类的地址。而在类装载器装载People类时，此时可以通过虚拟机获取Tool类 的实际内存地址，因此便可以既将符号org.simple.Tool替换为Tool类的实际内存地址，及直接引用地址
+     在java中，一个java类将会编译成一个class文件。在编译时，java类并不知道引用类的实际内存地址，因此只能使用符号引用来代替。比如org.simple.People类引用org.simple.Tool类，在编译时People类并不知道Tool类的实际内存地址，因此只能使用符号org.simple.Tool(假设)来表示Tool类的地址。而在类装载器装载People类时，此时可以通过虚拟机获取Tool类 的实际内存地址，因此便可以既将符号org.simple.Tool替换为Tool类的实际内存地址，即直接引用地址
 
+11.24
+1.
+什么是跨域？
+跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对javascript施加的安全限制。所谓同源是指，域名，协议，端口均相同，不明白没关系，举个栗子：
+请注意：localhost和127.0.0.1虽然都指向本机，但也属于跨域。
+浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行。
+
+11.27
+ 
+1.strictfp, 即 strict float point (精确浮点)。
+　　strictfp 关键字可应用于类、接口或方法。使用 strictfp 关键字声明一个方法时，该方法中所有的float和double表达式都严格遵守FP-strict的限制,符合IEEE-754规范。当对一个类或接口使用 strictfp 关键字时，该类中的所有代码，包括嵌套类型中的初始设定值和代码，都将严格地进行计算。严格约束意味着所有表达式的结果都必须是 IEEE 754 算法对操作数预期的结果，以单精度和双精度格式表示。
+　　如果你想让你的浮点运算更加精确，而且不会因为不同的硬件平台所执行的结果不一致的话，可以用关键字strictfp. 
+2.
+2.transient
+当串行化某个对象时，如果该对象的某个变量是transient，那么这个变量不会被串行化进去。也就是说，假设某个类的成员变量是transient，那么当通过
+ObjectOutputStream把这个类的某个实例
+保存到磁盘上时，实际上transient变量的值是不会保存的。因为当从磁盘中读出这个对象的时候，对象的该变量会没有被赋值。
+    另外这篇文章还提到，当从磁盘中读出某个类的实例时，实际上并不会执行这个类的构造函数，而是读取这个类的实例的状态，并且把这个状态付给这个类的对象。
+3.
+volatile的作用是作为指令关键字，确保本条指令不会因编译器的优化而省略，且要求每次直接读值。
+volatile的变量是说这变量可能会被意想不到地改变，这样，编译器就不会去假设这个变量的值了
+
+
+4.
+领域模型中的实体类分为四种类型：VO、DTO、DO、PO，各种实体类用于不同业务层次间的交互，并会在层次内实现实体类之间的转化。
+
+VO（View Object）：视图对象，用于展示层，它的作用是把某个指定页面（或组件）的所有数据封装起来。
+DTO（Data Transfer Object）：数据传输对象，这个概念来源于J2EE的设计模式，原来的目的是为了EJB的分布式应用提供粗粒度的数据实体，以减少分布式调用的次数，从而提高分布式调用的性能和降低网络负载，但在这里，我泛指用于展示层与服务层之间的数据传输对象。
+DO（Domain Object）：领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。
+PO（PersistentObject）：持久化对象，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。
+https://www.cnblogs.com/feng9exe/p/5621269.html
+5.
+首先了解什么叫RPC，为什么要RPC，RPC是指远程过程调用，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。
+6.
+方法签名由方法名称和一个参数列表（方法的参数的顺序和类型）组成。
+注意，方法签名不包括方法的返回类型。不包括返回值和访问修饰符。
+7.
+【强制】 Object 的 equals 方法容易抛空指针异常，应使用常量或确定有值的对象来调用equals 。
+正例： " test " .equals(object);
+反例：  object.equals( " test " );
+说明：推荐使用 java . util . Objects # equals （JDK 7 引入的工具类 ）
+8.
+【强制】所有的相同类型的包装类对象之间值的比较，全部使用 equals 方法比较。
+说明：对于 Integer var  = ?在-128 至 127 之间的赋值， Integer 对象是在
+IntegerCache . cache 产生，会复用已有对象，这个区间内的 Integer 值可以直接使用==进行
+判断，但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，
+推荐使用 equals 方法进行判断。
+
+9.
+java.lang.NullPointerException
+NPE ，空值异常，阿里规范文档里面的名词
+白话阿里巴巴Java开发手册（编程规约） - 行业新闻 - 重庆果动科技有限公司http://www.guodongkeji.com/newsshow-24-2265-1.html
+10.
+抽象类是不能被实例化的。但抽象类是否可以有构造函数？答案是可以有。抽象类的构造函数用来初始化抽象类的一些字段，而这一切都在抽象类的派生类实例化之前发生。不仅如此，抽线类的构造函数还有一种巧妙应用：就是在其内部实现子类必须执行的代码。
+11.
+MySQL数据库中的Date,DateTime,TimeStamp和Time类型
+
+DATETIME类型用在你需要同时包含日期和时间信息的值时。MySQL检索并且以'YYYY-MM-DD HH:MM:SS'格式显示DATETIME值，支持的范围是'1000-01-01 00:00:00'到'9999-12-31 23:59:59'。（“支持”意味着尽管更早的值可能工作，但不能保证他们可以。）
+DATE类型用在你仅需要日期值时，没有时间部分。MySQL检索并且以'YYYY-MM-DD'格式显示DATE值，支持的范围是'1000-01-01'到'9999-12-31'。
+TIMESTAMP列类型提供一种类型，你可以使用它自动地用当前的日期和时间标记INSERT或UPDATE的操作。
+如果你不分配一个值，表中的第一个TIMESTAMP列自动设置为最近操作的日期和时间。
+　　也可以通过分配一个NULL值，将TIMESTAMP列设置为当前的日期和时间
+TIME数据类型表示一天中的时间。MySQL检索并且以"HH:MM:SS"格式显示TIME值。支持的范围是'00:00:00'到'23:59:59'。
+12.
+为什么要将Runnable接口的子类对象传递给Thread的构造函数。
+   因为，自定义的run方法所属的对象是Runnable接口的子类对象。
+所以要让线程去指定对象的run方法。就必须明确该run方法所属对象。
+13.
+面试题之String str = new String("abc"); 创建了几个对象
+两个或一个，得看之前“abc”是否用过，没用过就是两个，用过就是一个
+11.28
+1.
+有了垃圾回收机制为什么还要调用close方法进行关闭？
+垃圾回收器只能处理java虚拟机所产生的内存垃圾 而流所消耗的操作系统资源、硬件、网络资源等的外部资源 这不是java虚拟机能管的 当然也不是垃圾回收器能处理的
+思考：
+有了垃圾回收机制为什么还要调用close方法进行关闭。
+答：垃圾回收机制是用来回收不再使用的对象。不会回收未关闭的资源。而IO操作中的流访问的是文件资源，如果不关闭，就仍然有对象引用指向它，也就不会被回收。所以必须关闭。
+为什么IO异常一定要处理。
+答：发生了IO异常，程序就会终止运行。
+2.
+思考：
+在加载文件时候是否是将文件全部加载进流
+答：不会，读取的时候加载。
+为什么定义数组，要定义多大呢？
+答：为了缓冲。先把数据读到缓冲数组中，缓冲区满了或到达文件末尾了就输出。缓冲数组的大小没有规定，但一般会定义为1024。太小的话体现不了缓冲的效率，太大的话会加剧内存的负担甚至内存溢出。
+注意：
+定义文件路径时，可以用“/”或者“\\”。
+在创建一个文件时，如果目录下有同名文件将被覆盖。
+在读取文件时，必须保证该文件已存在， 否则出异常。 
+ 
+3.
+ 用GBK编码，再用ISO8859-1解码，得到乱码。解决办法：
+对得到的乱码用ISO8859-1编码，可复原，再用GBK解码即可。
+（注意：ISO-8859-1编码是单字节编码，向下兼容ASCII）
+
+4.
+操作系统中会有一块地方，称作剪贴板（clipboard），专门用来处理复制粘贴。
+不同系统的细节可能会不同，但大致上是这样的：
+•	复制文本时，会把所复制的文本克隆一份到剪贴板里面。粘贴文本时，再将剪贴板里的文本克隆到所粘贴应用程序之中；
+o	复制文本时会保留其样式（比如在 Office 软件中复制，也会存储字体、字号等等信息，复制到剪贴板的实质上是一种「标记语言」）。但粘贴时若应用程序（比如记事本）不支持这些样式，则会去掉样式；
+o	复制图片、混合富文本时，也是同样先克隆到剪贴板里。
+•	复制文件时，系统只会把文件的路径复制到剪贴板，等到粘贴时再分情况处理：
+o	同一分区下，粘贴（或剪切）文件，都不会真正在存储设备里直接克隆、挪动，而是更改此文件的路径（path）属性。当然这与不同文件系统的具体实现有关；
+	（这也就是为什么，「复制 → 删除复制源文件 → 粘贴」这个操作会在大部分系统中失效了）
+o	不同分区下，粘贴（或剪切）文件，会重新开辟空间，然后克隆文件；
+o	涉及到与其他设备（即插即用设备等）之间的复制粘贴则更加复杂，实现各有不同。
+•	还要考虑的情况，就是涉及虚拟机、远程主机的复制粘贴机制。虚拟机软件、远程主机软件都会有一个「介于两系统之间的」剪贴板，「连接起」这两个系统的各自剪贴板，并做一些编码格式转换的工作。
+o	关于虚拟机复制粘贴，更具体的细节可以看这里：Is it possible to copy paste between Mac OS and its virtual machine? 各软件实现有异。
+	
+5.
+静态、自适应、流式、响应式四种网页布局有什么区别？
+
+响应式与自适应的原理是相似的，都是检测设备，根据不同的设备采用不同的css，而且css都是采用的百分比的，而不是固定的宽度，不同点是响应式的模板在不同的设备上看上去是不一样的，会随着设备的改变而改变展示样式，而自适应不会，所有的设备看起来都是一套的模板，不过是长度或者图片变小了，不会根据设备采用不同的展示样式，流式就是采用了一些设置，当宽度大于多少时怎么展示，小于多少时怎么展示，而且展示的方式向水流一样，一部分一部分的加载，静态的就是采用固定宽度的了。
+6.
+问题：对于Web服务器而言，当有多个客户端同时访问服务器时，服务端又如何提供服务呢？
+答：通过线程来提供服务。每接收一个客户端请求，就new一个线程与其通讯。
+
+7.
+调试
+ 手动添加断点:  在你想设置断点的地方 手动输入 debugger;  chrome浏览器 支持 直接 修改 js 文件 直接生效 ,不需要再次刷新页面 ; 
+jsp 实质是一个 .java 文件 ,所以 js 支持 直接修改 ; jsp 就不支持 直接修改 ; 所以: 这样也是将 js  和 jsp 分属不同文件的好处 ;
+8.
+11.29
+1.
+跨站脚本攻击(Cross Site Scripting)，为了不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。
+2.
+ESAPI是一个免费、开源的Web应用程序安全控制组件，可以帮助编程人员开发低风险应用程序。
+ESAPI是OWASP组织的一个开源项目，网址是： http://www.owasp.org/index.php/ESAPI
+
+3.
+对于测试，有着非常多的资料，也有着非常成熟的理论体系。而且还有一种开发方式叫做“Test-Driven Development”，即“测试驱动开发”，通常也被简称为TDD。其大致思想是，在开发功能代码之前，先编写测试的代码，再编写功能代码，也就是所谓”测试先行”。
+
+11.30
+1.
+当你有一组应用程序接口（API）只允许用Writer或Reader作为输入，但你又想使用String，这时可以用StringWriter或StringReader。
+Writer和Reader类是设计来处理基于字符串的输入和输出的。InputStream和OutputStream类则应该用于处理基于字节的I/O。在这个层次的类中，可以用ByteArrayInputStream和ByteArrayOutputStream来达到StringReader和StringWriter的类似效果。
+https://www.cnblogs.com/robbinluobo/p/6594925.html
+2.
+java web开发常见漏洞攻击及解决办法
+1.弱口令漏洞
+解决方案：
+最好使用至少6位的数字、字母及特殊字符组合作为密码。数据库不要存储明文密码，应存储MD5加密后的密文，由于目前普通的MD5加密已经可以被破解，最好可以多重MD5加密。
+
+2.未使用用户名及密码登录后台 ，可直接输入后台URL登录系统。
+解决方案：
+通过配置filter来过滤掉无效用户的连接请求。
+
+3．JSP页面抛出的异常可能暴露程序信息。有经验的入侵者，可以从JSP程序的异常中获取很多信息，比如程序的部分架构、程序的物理路径、SQL注入爆出来的信息等。
+解决方案：
+自定义一个Exception，将异常信息包装起来不要抛到页面上。
+
+4.合法用户“注销”后，在未关闭浏览器的情况下，点击浏览器“后退”按钮，可从本地页面缓存中读取数据，绕过了服务端filter过滤。
+解决方案：
+配置filter对存放敏感信息的页面限制页面缓存。如：
+httpResponse.setHeader("Cache-Control","no-cache"); 
+httpResponse.setHeader("Cache-Control","no-store");
+httpResponse.setDateHeader("Expires", 0);
+httpResponse.setHeader("Pragma","no-cache");
+5.SQL注入漏洞。
+解决方案：
+在数据库访问层中不要使用“+”来拼接SQL语句！如：
+String sql= “SELECT * FROM USERS WHERE 1=1”;
+if(null != user.getUserName() && !””.equals(user.getUserName())){
+	sql += “ and UNAME = ‘”+user.getUserName()+”’”;
+}
+而应使用PreparedStatement。如：
+PreparedStatement pstmt = con.prepareStatement("SELECT * FROM USERS WHERE UNAME=?");
+pstmt.setString(1, “Neeke”);
+如果项目中使用了Hibernate框架，则推荐使用named parameter。如：
+String queryString = "from Users where uname like :name";
+冒号后面是一个named parameter，我们可以使用Query接口将一个参数绑定到name参数上：
+List result = session.createQuery(queryString)
+                  .setString("name", user.getUserName())
+                  .list();
+6.文件上传漏洞。前台仅使用JS对文件后缀做了过滤，这只能针对普通的用户，而恶意攻击者完全可以修改表单去掉JS校验。
+解决方案：
+前台JS过滤加服务器端程序过滤。具体过滤掉哪些文件类型视具体情况而定。
+
+7.可执行脚本漏洞。对用户提交的数据未转义，一些用户提交的含有JavaScript脚本的信息被直接输出到页面中从而被浏览器执行。
+解决方案：
+使用org.apache.commons.lang.StringEscapeUtils对用户提交的数据进行转义。如：
+@RequestMapping(params="method=addTopic",method=RequestMethod.POST)
+public ModelAndView addTopic(HttpServletRequest request, HttpServletResponse response, BbsTopic topic)
+{
+BaseAdmin user = (BaseAdmin) request.getSession().getAttribute(Constant.SESSION_USER);
+topic.setBaseAdmin(user);
+topic.setTopicDate(new Timestamp(System.currentTimeMillis()));
+topic.setTopicContent(StringEscapeUtils.escapeHtml(topic.getTopicContent()));
+topic.setTopicTitle(StringEscapeUtils.escapeHtml(topic.getTopicTitle()));
+this.bbsTopicService.save(topic);
+return new ModelAndView(new RedirectView("bbs.do?method=topicList&bfid="+ topic.getBfid()));
+}
+如果前台不限制特殊字符，在我们页面输出的时候，可以采用jstl标签得输出标签来过滤字符，${}是el表达式，默认不过滤特殊符号的，但是你可以使用<c:out value='${}'/> 过滤特殊符号。
+
+3.
+<meta> 元素可提供有关页面的元信息（meta-information），比如针对搜索引擎和更新频度的描述和关键词。
+<meta> 标签位于文档的头部，不包含任何内容。<meta> 标签的属性定义了与文档相关联的名称/值对。
+
+4.
+CSS min-height 属性
+该属性值会对元素的高度设置一个最低限制。因此，元素可以比指定值高，但不能比其矮。不允许指定负值
+DEC.
+12.1
+1.
+URL 只能使用 ASCII 字符集.
+来通过因特网进行发送。由于 URL 常常会包含 ASCII 集合之外的字符，URL 必须转换为有效的 ASCII 格式。
+URL 编码使用 "%" 其后跟随两位的十六进制数来替换非 ASCII 字符。
+URL 不能包含空格。URL 编码通常使用 + 来替换空格。
+
+12.4
+1.
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+注意class直接没有逗号，这只是一个class（父->子的筛选）
+
+12.5
+1.
+    一般情况下，一旦Web服务器向浏览器发送了请求数据，它就要关闭TCP连接，然后如果浏览器或者服务器在其头信息加入了这行代码
+    Connection:keep-alive
+   TCP连接在发送后将仍然保持打开状态，于是，浏览器可以继续通过相同的连接发送请求。保持连接节省了为每个请求建立新连接所需的时间，还节约了网络带宽。
+2.
+伪类选择元素基于的是当前元素处于的状态，或者说元素当前所具有的特性，而不是元素的id、class、属性等静态的标志。由于状态是动态变化的，所以一个元素达到一个特定状态时，它可能得到一个伪类的样式；当状态改变时，它又会失去这个样式。由此可以看出，它的功能和class有些类似，但它是基于文档之外的抽象，所以叫伪类。
+与伪类针对特殊状态的元素不同的是，伪元素是对元素中的特定内容进行操作，它所操作的层次比伪类更深了一层，也因此它的动态性比伪类要低得多。实际上，设计伪元素的目的就是去选取诸如元素内容第一个字（母）、第一行，选取某些内容前面或后面这种普通的选择器无法完成的工作。它控制的内容实际上和元素是相同的，但是它本身只是基于元素的抽象，并不存在于文档中，所以叫伪元素。
+
+12.6
+1.
+JS对代码行进行折行
+您可以在文本字符串中使用反斜杠对代码行进行换行。下面的例子会正确地显示：
+document.write("你好 \
+世界!");
+不过，您不能像这样折行：
+document.write \ 
+("你好世界!");
+
+2.
+提示：JavaScript 是脚本语言。浏览器会在读取代码时，逐行地执行脚本代码。而对于传统编程来说，会在执行前对所有代码进行编译。
+3.
+如果用户不能确定浏览器是否支持JavaScript脚本，那么可以应用HTML提供的注释符号进行验证。HTML注释符号是以 <-- 开始以 --> 结束的。如果在此注释符号内编写 JavaScrip t脚本，对于不支持 JavaScript 的浏览器，将会把编写的 JavaScript 脚本作为注释处理。
+使用 JavaScript 脚本在页面中输出一个字符串，将 JavaScript 脚本编写在 HTML 注释中，如果浏览器支持 JavaScript 将输出此字符串，如果不支持将不输出此字符串，代码如下:
+<script>
+<!--
+document.write("您的浏览器支持JavaScript脚本!");
+//-->
+</script>
+4.
+重新声明 JavaScript 变量
+如果重新声明 JavaScript 变量，该变量的值不会丢失：
+在以下两条语句执行后，变量 carname 的值依然是 "Volvo"：
+var carname="Volvo"; 
+var carname;
+
+5.
+您可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
+实例
+var answer="It's alright";
+var answer="He is called 'Johnny'";
+var answer='He is called "Johnny"';
+6．
+JavaScript 数字
+JavaScript 只有一种数字类型。数字可以带小数点，也可以不带：
+实例
+var x1=34.00;      //使用小数点来写
+var x2=34;         //不使用小数点来写
+极大或极小的数字可以通过科学（指数）计数法来书写：
+实例
+var y=123e5;      // 12300000
+var z=123e-5;     // 0.00123
+7.
+JavaScript 对象
+对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义。属性由逗号分隔：
+var person={firstname:"John", lastname:"Doe", id:5566};
+上面例子中的对象 (person) 有三个属性：firstname、lastname 以及 id。
+空格和折行无关紧要。声明可横跨多行：
+var person={
+firstname : "John",
+lastname  : "Doe",
+id        :  5566
+};
+对象属性有两种寻址方式：
+实例
+name=person.lastname;
+name=person["lastname"];
+
+8.
+Undefined 和 Null
+Undefined 这个值表示变量不含有值。
+可以通过将变量的值设置为 null 来清空变量。
+实例
+cars=null;
+person=null;
+9．
+JavaScript 变量均为对象。当您声明一个变量时，就创建了一个新的对象。
+
+最常用的对象创建方式:
+第一种：
+function Demo(){
+    var obj=new Object();
+    obj.name="张思";
+    obj.age=12;
+    obj.firstF=function(){
+    }
+    obj.secondF=function(){
+    }
+    return obj;
+}
+
+var one=Demo();
+// 调用输出
+document.write(one.age);
+第二种：
+function Demo(){
+    this.name="张思";
+    this.age=12;
+    this.firstF=function(){
+    }
+    this.secondF=function(){
+    }
+}
+
+var one=new Demo
+
+// 调用输出
+document.write(one.age);
+
+对象的创建，一般推荐使用
+var perple = {name : 'Tom', age : 21 , eat : function(){  }    }
+也可先创建对象再追加属性和方法
+var people = new Ojbect();
+people.name = 'Tom';   
+people.age = 21;  
+people.eat = function(){  }
+
+9.
+
+JavaScript 对象是变量的容器
+
+JavaScript 对象是属性变量的容器。
+
+对象方法
+对象的方法定义了一个函数，并作为对象的属性存储。
+对象方法通过添加 () 调用 (作为一个函数)。
+该实例访问了 person 对象的 fullName() 方法:
+实例
+name = person.fullName();
+
+你要访问 person 对象的 fullName 属性，它将作为一个定义函数的字符串返回：
+name = person.fullName;
+
+
+JavaScript 对象是属性和方法的容器。
+
+10.
+JavaScript 对大小写敏感。关键词 function 必须是小写的，并且必须以与函数名称相同的大小写来调用函数。
+在您仅仅希望退出函数时 ，也可使用 return 语句。返回值是可选的：
+function myFunction(a,b) { if (a>b) { return; } x=a+b }
+11.
+JavaScript 变量的生存期
+JavaScript 变量的生命期从它们被声明的时间开始。
+局部变量会在函数运行以后被删除。
+全局变量会在页面关闭后被删除。
+12.
+向未声明的 JavaScript 变量分配值
+如果您把值赋给尚未声明的变量，该变量将被自动作为全局变量声明。
+这条语句：
+carname="Volvo";
+将声明一个全局变量 carname，即使它在函数内执行。
+
+13.
+JavaScript 作用域
+在 JavaScript 中, 对象和函数同样也是变量。
+在 JavaScript 中， 作用域为可访问变量，对象，函数的集合。
+JavaScript 函数作用域: 作用域在函数内修改。
+14.
+在 HTML 中, 全局变量是 window 对象: 所有数据变量都属于 window 对象。
+你的全局变量，或者函数，可以覆盖 window 对象的变量或者函数。
+局部变量，包括 window 对象可以覆盖全局变量和函数
+
+当用户改变input输入框内容时执行一段Javascript代码：
+<input type="text" onchange="myFunction()">
+onchange 事件会在域的内容改变时发生。
+onchange 事件也可用于单选框与复选框改变后触发的事件。
+
+15.
+你也可以在字符串添加转义字符来使用引号：
+实例
+var x = 'It\'s alright';
+var y = "He is called \"Johnny\"";
+
+16.
+不要创建 String 对象。它会拖慢执行速度，并可能产生其他副作用：
+var x = "John";              
+var y = new String("John");
+(x === y) // 结果为 false，因为 x 是字符串，y 是对象
+=== 为绝对相等，即数据类型与值都必须相等。
+17.
+原始值字符串，如 "John", 没有属性和方法(因为他们不是对象)。
+原始值可以使用 JavaScript 的属性和方法，因为 JavaScript 在执行方法和属性时可以把原始值当作对象。
+18.
+var result1=5+5+"abc"; //结果将是"10abc"
+
+var result2= ""+5+5+"abc"; //结果将是"55abc"
+
+19.
+href="#"与href="javascript:void(0)"的区别
+# 包含了一个位置信息，默认的锚是#top 也就是网页的上端。
+而javascript:void(0), 仅仅表示一个死链接。
+在页面很长的时候会使用 # 来定位页面的具体位置，格式为：# + id。
+如果你要定义一个死链接请使用 javascript:void(0) 。
+
+javascript:void(0) 中最关键的是 void 关键字， void 是 JavaScript 中非常重要的关键字，该操作符指定要计算一个表达式但是不返回值。
+
+void()仅仅是代表不返回任何值，但是括号内的表达式还是要运行
+20.
+
+12.7
+1.
+在常规的比较中，数据类型是被忽略的，以下 if 条件语句返回 true：
+var x = 10;
+var y = "10";
+if (x == y)
+
+2.
+________________________________________
+浮点型数据使用注意事项
+JavaScript 中的所有数据都是以 64 位浮点型数据(float) 来存储。
+所有的编程语言，包括 JavaScript，对浮点型数据的精确度都很难确定：
+var x = 0.1;
+var y = 0.2;
+var z = x + y            // z 的结果为 0.3
+if (z == 0.3)            // 返回 false
+
+尝试一下 »
+为解决以上问题，可以用整数的乘除法来解决：
+实例
+var z = (x * 10 + y * 10) / 10;       // z 的结果为 0.3
+3.
+JavaScript 字符串分行
+JavaScript 允许我们在字符串中使用断行语句:
+实例 1
+var x =
+"Hello World!";
+
+尝试一下 »
+但是，在字符串中直接使用回车换行是会报错的：
+实例 2
+var x = "Hello
+World!";
+字符串断行需要使用反斜杠(\)，如下所示:
+实例 3
+var x = "Hello \
+World!";
+
+尝试一下 »
+4.
+Return 语句使用注意事项
+JavaScript 默认是在代码的最后一行自动结束。
+在 JavaScript 中，分号是可选的 。
+
+定义数组元素，最后不能添加逗号
+错误的定义方式：
+points = [40, 100, 1, 5, 25, 10,];
+正确的定义方式：
+points = [40, 100, 1, 5, 25, 10];
+5.
+定义对象，最后不能添加逗号
+错误的定义方式：
+websites = {site:"菜鸟教程", url:"www.runoob.com", like:460,}
+正确的定义方式：
+websites = {site:"菜鸟教程", url:"www.runoob.com", like:460}
+________________________________________
+Undefined 不是 Null
+在 JavaScript 中, null 用于对象, undefined 用于变量，属性和方法。
+对象只有被定义才有可能为 null，否则为 undefined。
+如果我们想测试对象是否存在，在对象还没定义时将会抛出一个错误。
+错误的使用方式：
+if (myObj !== null && typeof myObj !== "undefined") 
+正确的方式是我们需要先使用 typeof 来检测对象是否已定义：
+if (typeof myObj !== "undefined" && myObj !== null) 
+6.
+程序块作用域
+在每个代码块中 JavaScript 不会创建一个新的作用域，一般各个代码块的作用域都是全局的。
+以下代码的的变量 i 返回 10，而不是 undefined：
+实例
+for (var i = 0; i < 10; i++) {
+    // some code
+}
+return i;
+
+变量在函数内声明，变量为局部作用域。
+局部变量：只能在函数内部访问。
+
+7.
+JavaScript 内嵌函数
+所有函数都能访问全局变量。  
+实际上，在 JavaScript 中，所有函数都能访问它们上一层的作用域。
+JavaScript 支持嵌套函数。嵌套函数可以访问上一层的函数变量。
+该实例中，内嵌函数 plus() 可以访问父函数的 counter 变量：
+实例
+function add() { var counter = 0; function plus() {counter += 1;} plus(); return counter; }
+8.
+因为很多网站是共用一个IP地址的（虚拟主机），你单单输入一个IP地址电脑就不知道你要去哪。自然无法访问。我们host里google的IP就是这样的。
+9.
+sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。
+
+12.8
+1.
+在连接mysql数据库时，用到的url中一般会添加"useUnicode=true&characterEncoding=UTF-8",而添加这段话的作用是：指定字符的编码、解码格式。
+比如：若mysql数据库用到 是GBK编码方式，而项目数据库用的是UTF-8编码方式。这时如果添加了"useUnicode=true&characterEncoding=UTF-8"，则在存取数据时根据mysql和项目的编码方式将数据进行相应的格式转化。即：
+1、存数据
+数据库在存放项目数据的时候会先用UTF-8格式将数据解码成字节码，然后再将解码后的字节码重新使用GBK编码，并存放到数据库中。
+2、取数据
+在数据库中取数据的时候，数据库会先将数据库中的数据按GBK格式解码成字节码，然后再将解码后的字节码重新按UTF-8格式编码数据，最后再将数据返回给客户端。
+
+
+2.
+什么是Native Method
+   简单地讲，一个Native Method就是一个java调用非java代码的接口。一个Native Method是这样一个java的方法：该方法的实现由非java语言实现，比如C。这个特征并非java所特有，很多其它的编程语言都有这一机制，比如在C＋＋中，你可以用extern "C"告知C＋＋编译器去调用一个C的函数。
+   "A native method is a Java method whose implementation is provided by non-java code."
+3.
 
