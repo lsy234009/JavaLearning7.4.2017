@@ -3323,4 +3323,184 @@ sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可�
    简单地讲，一个Native Method就是一个java调用非java代码的接口。一个Native Method是这样一个java的方法：该方法的实现由非java语言实现，比如C。这个特征并非java所特有，很多其它的编程语言都有这一机制，比如在C＋＋中，你可以用extern "C"告知C＋＋编译器去调用一个C的函数。
    "A native method is a Java method whose implementation is provided by non-java code."
 3.
+java中的域
+　　　　所谓的域，翻译成英文就是field， 也就是我们常说的字段，或者说是属性。 比如类的字段（属性），局部的，全局的。所谓域，其实是“field”的翻译
+然后实例域，就是 实例("object" )的"field"。包括实例域和静态域，静态域又叫类域。
+　　　　java中对象中的数据称为实例域（instance field）。
+https://www.cnblogs.com/jerry007/archive/2013/01/18/java%E4%B8%AD%E5%9F%9F.html
+4.
+JIT编译器，英文写作Just-In-Time Compiler，中文意思是即时编译器。
+JIT是一种提高程序运行效率的方法。通常，程序有两种运行方式：静态编译与动态解释。静态编译的程序在执行前全部被翻译为机器码，而解释执行的则是一句一句边运行边翻译
+12.11
+1.
+命名空间的语法如下：
+   xmlns:[prefix]=”[url of name]”
+其中“xmlns:”是必须的属性。“prefix”是命名空间的别名，它的值不能为xml。
+
+xsi:schemaLocation属性的值由一个URI引用对组成，两个URI之间以空白符分隔。第一个URI是名称空间的名字，第二个URI给出模式文档的位置，模式处理器将从这个位置读取模式文档，该模式文档的目标名称空间必须与第一个URI相匹配。我们看例4-28。
+例4-28  book6.xml
+ 
+<?xml version="1.0" encoding="GB2312"?>
+<book xmlns="http://www.sunxin.org/book"   ①
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  ②
+xsi:schemaLocation="http://www.sunxin.org/book http://www.sunxin.org/ 
+book.xsd">  ③
+<title>《Struts 2深入详解》</title>
+<author>孙鑫</author>
+</book>
+① 声明默认的名称空间（http://www.sunxin.org/book）。
+② 声明XML Schema实例名称空间（http://www.w3.org/2001/XMLSchema-instance），并将xsi前缀与该名称空间绑定，这样模式处理器就可以识别xsi:schemaLocation属性。XML Schema实例名称空间的前缀通常使用xsi。
+③ 使用xsi:schemaLocation属性指定名称空间http://www.sunxin.org/book和模式位置http://www.sunxin.org/book.xsd相关。要注意，在这个例子中，book.xsd中声明的目标名称空间要求是http://www.sunxin.org/book。
+
+2.
+设置 Java 类路径
+有三种方式设置 Java 类路径：
+1．永久地，通过在系统级上设置 CLASSPATH 环境变量来实现。
+使用控制面板的系统设置来添加名为 CLASSPATH 的新变量，从而永久性地设置 Windows 环境变量。
+UNIX 用户可以通过向 .profile 或 .cshrc 文件添加 CLASSPATH 变量来永久设置类路径。
+
+3.
+<props>元素 
+<props>创建了一个注入的java.util.Properties元素。例如每个人都有身高、体重等基本信息 
+
+Java代码   
+1.	1 import java.util.Properties;  
+2.	2   
+3.	3 public class Person {  
+4.	4     private Properties basicInfo;  
+5.	5   
+6.	6     public void setBasicInfo(Properties basicInfo) {  
+7.	7         this.basicInfo = basicInfo;  
+8.	8      }  
+9.	9 }  
+
+
+配置方式： 
+Java代码   
+1.	1 <bean id="person" class="Person">  
+2.	2         <property name="basicInfo">  
+3.	3             <props>  
+4.	4                 <!-- 身高 -->  
+5.	5                 <prop key="stature">1.75</prop>  
+6.	6                 <!-- 体重 -->  
+7.	7                 <prop key="avoirdupois">120</prop>  
+8.	8             </props>  
+9.	9         </property>  
+10.	10     </bean> 
+4．
+关于在spring  容器初始化 bean 和销毁前所做的操作定义方式有三种：
+第一种：通过@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作
+第二种是：通过 在xml中定义init-method 和  destory-method方法
+第三种是： 通过bean实现InitializingBean和 DisposableBean接口
+5.
+BootStrap,ExtClassLoader,AppClassLoader
+类加载器也是Java类，因为Java类的类加载器本身也是要被类加载器加载的，显然必须有第一个类加载器不是Java类，这个正是BootStrap,使用C/C++代码写的，已经封装到JVM内核中了，而ExtClassLoader和AppClassLoader是Java类。
+5.
+BootStrap：老大。类加载器的祖先。 打印它会得到null。
+自己加的：
+Object.class.getClassLoader()为何为null的解释，原来rt.jar的类加载器是Bootstrap，非java类。
+负责加载JRE/lib/rt.jar(JDK中绝大部分的类)
+12.12
+1.
+面向服务的架构（SOA）
+Service-Oriented Architecture是一个组件模型，它将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。
+2.
+分布式协调技术 主要用来解决分布式环境当中多个进程之间的同步控制，让他们有序的去访问某种临界资源，防止造成"脏数据"的后果。
+ 
+3.
+“越狱”指的是绕过苹果在其设备上对操作系统施加的很多限制，从而可以“Root访问”基础的操作系统。简单来说，“越狱”可以让iPhone用户从苹果应用商店外下载其他非官方的应用程序，或者对用户界面进行定制。
+4.
+中间件
+中间件就是程序中可植入的，可重用的，与业务逻辑无关的各种组件
+中间件是基础软件的一大类，属于可复用软件的范畴。顾名思义，中间件处于操作系统软件与用户的应用软件的中间。中间件在操作系统、网络和数据库之上，应用软件的下层，总的作用是为处于自己上层的应用软件提供运行与开发的环境，帮助用户灵活、高效的开发和集成复杂的应用软件
+中间件是一种独立的系统软件或服务程序，分布式应用软件借助这种软件在不同的技术之间共享资源，中间件位于客户机服务器的操作系统之上，管理计算资源和网络通信。
+举例：
+RMI（Remote Method Invocation）远程调用
+Load Balancing 负载均衡，将访问符合分散到各个服务器中
+Treasparent Fail-over 透明的故障切换
+Clustering 集群，用多个小的服务器代替大型机
+Back-end-Integration 后端集成，用现有的、新开发的系统如何去集成遗留的系统
+Transaction 事务（全局事务：分布式事务）（局部事务：在同一数据库连接内的事务）
+Dynamic Redeployment 动态重新部署，在不停止原系统的情况下，部署新的系统
+System Managerment 系统管理
+Threading 多线程处理
+Message-oriented Middleware 面向消息的中间件（异步的调用编程）
+Component Life Cycle 组件的生命周期管理
+Resource pooling 资源池
+Security 安全
+Caching 缓存
+5.
+REST -- REpresentational State Transfer 直接翻译：表现层状态转移
+URL定位资源，用HTTP动词（GET,POST,DELETE,DETC）描述操作。
+
+5.1
+REST描述的是在网络中client和server的一种交互形式；REST本身不实用，实用的是如何设计 RESTful API（REST风格的网络接口）；
+5.2
+Server提供的RESTful API中，URL中只使用名词来指定资源，原则上不使用动词。“资源”是REST架构或者说整个网络处理的核心。比如：
+http://api.qc.com/v1/newsfeed: 获取某人的新鲜; 
+http://api.qc.com/v1/friends: 获取某人的好友列表;
+http://api.qc.com/v1/profile: 获取某人的详细信息;3. 用HTTP协议里的动词来实现资源的添加，修改，删除等操作。即通过HTTP动词来实现资源的状态扭转：
+GET 用来获取资源，
+POST 用来新建资源（也可以用于更新资源），
+PUT 用来更新资源，
+DELETE 用来删除资源。比如：
+DELETE http://api.qc.com/v1/friends: 删除某人的好友 （在http parameter指定好友id）
+POST http://api.qc.com/v1/friends: 添加好友
+UPDATE http://api.qc.com/v1/profile: 更新个人资料
+
+
+6.
+REST -- REpresentational State Transfer
+首先，之所以晦涩是因为前面主语被去掉了，全称是 Resource Representational State Transfer：通俗来讲就是：资源在网络中以某种表现形式进行状态转移。分解开来：
+Resource：资源，即数据（前面说过网络的核心）。比如 newsfeed，friends等；
+Representational：某种表现形式，比如用JSON，XML，JPEG等；
+State Transfer：状态变化。通过HTTP动词实现。
+7．
+Dubbo 是阿里巴巴公司开源的一个Java高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和 Spring框架无缝集成。
+
+12.13
+1.
+在基于spring框架做项目开发时，写junit单元测试需要在spring的环境下运行测试用例，需要加载spring的配置环境信息，之前我们可以使用编码的方式来实现spring的环境启动，现在介绍下如何使用注解的方式，简单方便的使junit和spring进行整合测试
+https://jingyan.baidu.com/article/a3761b2bfac0701577f9aa10.html
+2.
+在使用Spring进行自动注入的过程中，只会对通过读取Spring的配置文件或者配置类后产生的实例进行自动注入。 
+手动new出来的实例是无法获得在Spring中注册过得实例，这是 因为手动new 的实例并不是Spring 在初始化过程中注册的实例。 
+
+Spring默认都是单例的，new出来的对象，Spring依然不会对它进行装配，只有通过Spring创建的对象才会获得自动装配的功能
+3.
+ARP攻击就是通过伪造IP地址和MAC地址实现ARP欺骗，能够在网络中产生大量的ARP通信量使网络阻塞，攻击者只要持续不断的发出伪造的ARP响应包就能更改目标主机ARP缓存中的IP-MAC条目，造成网络中断或中间人攻击。
+ARP攻击主要是存在于局域网网络中，局域网中若有一台计算机感染ARP木马，则感染该ARP木马的系统将会试图通过“ARP欺骗”手段截获所在网络内其它计算机的通信信息，并因此造成网内其它计算机的通信故障。
+攻击者向电脑A发送一个伪造的ARP响应，告诉电脑A：电脑B的IP地址192.168.0.2对应的MAC地址是00-aa-00-62-c6-03，电脑A信以为真，将这个对应关系写入自己的ARP缓存表中，以后发送数据时，将本应该发往电脑B的数据发送给了攻击者。同样的，攻击者向电脑B也发送一个伪造的ARP响应，告诉电脑B：电脑A的IP地址192.168.0.1对应的MAC地址是00-aa-00-62-c6-03，电脑B也会将数据发送给攻击者。
+至此攻击者就控制了电脑A和电脑B之间的流量，他可以选择被动地监测流量，获取密码和其他涉密信息，也可以伪造数据，改变电脑A和电脑B之间的通信内容。
+为了解决ARP攻击问题，可以在网络中的交换机上配置802.1x协议。
+IEEE 802.1x是基于端口的访问控制协议，它对连接到交换机的用户进行认证和授权。在交换机上配置802.1x协议后，攻击者在连接交换机时需要进行身份认证（结合MAC、端口、帐户、VLAN和密码等），只有通过认证后才能向网络发送数据。攻击者未通过认证就不能向网络发送伪造的ARP报文。
+4.
+Dump文件是进程的内存镜像。可以把程序的执行状态通过调试器保存到dump文件中。Dump文件是用来给驱动程序编写人员调试驱动程序用的，这种文件必须用专用工具软件打开，比如使用WinDbg打开。
+5.
+OOM  out of  memory
+原语 操作系统或计算机网络用语范畴。是由若干条指令组成的，用于完成一定功能的一个过程。
+6.
+栈深度
+ 相当于递归调用的次数一样
+7.
+常说的GC(Garbage Collector) roots，特指的是垃圾收集器（Garbage Collector）的对象，GC会收集那些不是GC roots且没有被GC roots引用的对象。
+8.
+java.lang.OutOfMemory错误，此错误来自JVM，不是Throwable的，无法用try…catch捕捉
+9.
+public String intern()
+返回字符串对象的规范化表示形式。 
+一个初始为空的字符串池，它由类 String 私有地维护。 
+当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（用 equals(Object) 方法确定），则返回池中的字符串。否则，将此 String 对象添加到池中，并返回此 String 对象的引用。 
+它遵循以下规则：对于任意两个字符串 s 和 t，当且仅当 s.equals(t) 为 true 时，s.intern() == t.intern() 才为 true。 
+10.
+LifecyclePhaseNotFoundException，Unknown lifecycle phase "mvn". You must specify a valid lifecycle
+
+•	原因1：
+使用Eclipse Maven插件[Run As]-[Maven build]时并未为其指定goal或phase 
+解决方法： 
+在pom.xml中找到 <build> 节点，在里面加上<defaultGoal>compile</defaultGoal>即可
+•	原因2： 
+使用Eclipse Maven插件[Run As]-[Maven build]时多输入了mvn命令 
+，因为Eclipse Maven插件已经帮你加上了mvn的命令前缀，再手动输出mvn clean install之类的 命令就会变成mvn mvn clean install
+
 
